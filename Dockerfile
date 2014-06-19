@@ -19,6 +19,7 @@ RUN echo "daemon_port = 80" >> /etc/apt-cacher/apt-cacher.conf
 
 
 RUN echo 'Acquire::http::Proxy "http://localhost";' > /etc/apt/apt.conf.d/01proxy
+RUN echo ServerName localhost >> /etc/apache2/apache2.conf
 RUN mkdir /var/lock/apache2
 EXPOSE 80
 
