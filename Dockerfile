@@ -18,7 +18,12 @@ ubuntu_release_names = trusty, utopic
 clean_cache = 1
 daemon_port = 80
 EOF
+
+RUN cat <<EOF > /etc/apt/apt.conf.d/01proxy
+Acquire::http::Proxy "http://localhost";
+EOF
+
 EXPOSE 80
 
-ENTRYPOINT ["/usr/sbin/apache2"]
-CMD ["-D", "FOREGROUND"]
+#ENTRYPOINT ["/usr/sbin/apache2"]
+#CMD ["-D", "FOREGROUND"]
