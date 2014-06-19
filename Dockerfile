@@ -22,4 +22,4 @@ RUN echo 'Acquire::http::Proxy "http://localhost";' > /etc/apt/apt.conf.d/01prox
 
 EXPOSE 80
 
-CMD /bin/bash -c "source /etc/apache2/envvars && /usr/sbin/apache2 -D FOREGROUND"
+CMD /bin/bash -c "source /etc/apache2/envvars && /usr/sbin/apache2 -DFOREGROUND"
