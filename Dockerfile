@@ -24,4 +24,6 @@ RUN mkdir /var/lock/apache2
 RUN mkdir /var/run/apache2
 EXPOSE 80
 
-CMD /bin/bash -c "source /etc/apache2/envvars && /usr/sbin/apache2 -D FOREGROUND"
+CMD source /etc/apache2/envvars && \
+    /bin/bash -c "/usr/sbin/apt-cacher &" && \
+    /usr/sbin/apache2 -D FOREGROUND
