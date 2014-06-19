@@ -7,21 +7,18 @@ ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 RUN cat <<EOF >  /etc/default/apt-cacher 
-    AUTOSTART=1
-    EXTRAOPT=" daemon_port=80 limit=30 "
-EOF
+RUN echo "AUTOSTART=1" > /etc/default/apt-cacher 
+RUN echo 'EXTRAOPT=" daemon_port=80 limit=30 "' >> /etc/default/apt-cacher 
 
-RUN cat <<EOF >> /etc/apt-cacher/apt-cacher.conf
-allowed_hosts = *
-installer_files_regexp = ^(?:vmlinuz|linux|initrd\.gz|changelog|NEWS.Debian|[a-z]+\.tar\.gz(?:\.gpg)?|UBUNTU_RELEASE_NAMES\.tar\.gz(?:\.gpg)?|(?:Devel|EOL)?ReleaseAnnouncement(?:\.html)?|meta-release(?:-lts)?(?:-(?:development|proposed))?)$
-ubuntu_release_names = trusty, utopic
-clean_cache = 1
-daemon_port = 80
-EOF
+RUN echo "allowed_hosts = *" >> /etc/apt-cacher/apt-cacher.conf
+RUN echo "installer_files_regexp = ^(?:vmlinuz|linux|initrd\.gz|changelog|NEWS.Debian|[a-z]+\.tar\.gz(?:\.gpg)?|UBUNTU_RELEASE_NAMES\.tar\.gz(?:\.gpg)?|(?:Devel|EOL)?ReleaseAnnouncement(?:\.html)?|meta-release(?:-lts)?(?:-(?:development|proposed))?)$ " >> /etc/apt-cacher/apt-cacher.conf
+RUN echo "installer_files_regexp = ^(?:vmlinuz|linux|initrd\.gz|changelog|NEWS.Debian|[a-z]+\.tar\.gz(?:\.gpg)?|UBUNTU_RELEASE_NAMES\.tar\.gz(?:\.gpg)?|(?:Devel|EOL)?ReleaseAnnouncement(?:\.html)?|meta-release(?:-lts)?(?:-(?:development|proposed))?)$ " >> /etc/apt-cacher/apt-cacher.conf
+RUN echo "ubuntu_release_names = trusty, utopic"  >> /etc/apt-cacher/apt-cacher.conf
+RUN echo "clean_cache = 1"  >> /etc/apt-cacher/apt-cacher.conf
+RUN echo "daemon_port = 80" >> /etc/apt-cacher/apt-cacher.conf
 
-RUN cat <<EOF > /etc/apt/apt.conf.d/01proxy
-Acquire::http::Proxy "http://localhost";
-EOF
+
+RUN echo 'Acquire::http::Proxy "http://localhost";' > /etc/apt/apt.conf.d/01proxy
 
 EXPOSE 80
 
